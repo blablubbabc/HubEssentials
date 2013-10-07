@@ -1,0 +1,58 @@
+####################################
+########## Hub Essentials ##########
+####################################
+# world settings
+world settings:
+  limit to enabled worlds: false
+  enabled worlds:
+  - "world"
+  main world: "world"
+# potion effects:
+effects:
+  speed:
+    enabled: true
+    level: 3
+  jump:
+    enabled: true
+    level: 3
+# disabled stuff:
+disabled:
+  hunger: true
+  damage: true
+  raining: true
+  item dropping: true
+  item pickup: true  
+  chat:
+    disabled: false
+    inform: true
+    inform message: "&bSorry, chat is disabled."
+# join and leave messages:
+messages:
+  join:
+    enabled: true
+    message: "&8[&2+&8] &e{player} has joined."
+  quit:
+    enabled: true
+    message: "&8[&4-&8] &e{player} has left."
+# spawn at main world spawn ?
+spawn at main world spawn: true
+# fake day
+fake day: true
+# clear inventory on join and leave
+clear inventory: false
+# hide players item
+hide players item:
+  enabled: true
+  'timeout in ticks': 20
+  'on':
+    item: "REDSTONE_TORCH_ON"
+    item name: "&aPlayers are visible"
+    lore:
+    - "&7Click to hide all players"
+    message on use: "&bAll players are now hidden."
+  'off':
+    item: "REDSTONE_TORCH_OFF"
+    item name: "&cPlayers are hidden"
+    lore:
+    - "&7Click to show all players"
+    message on use: "&bAll players are now visible again."
