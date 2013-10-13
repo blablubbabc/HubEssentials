@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -103,30 +104,40 @@ public class Config {
 		// extra gadgets:
 		
 		// hide torch:
-		this.hideItemEnabled = config.getBoolean("hide players item.enabled");
-		this.hideItemTimeoutInTicks = config.getLong("hide players item.timeout in ticks");
-		// on
-		Material itemOn = Material.getMaterial(config.getString("hide players item.on.item"));
+		ConfigurationSection hideItemSection = config.getConfigurationSection("hide players item");
+		this.hideItemEnabled = hideItemSection.getBoolean("enabled");
+		this.hideItemTimeoutInTicks = hideItemSection.getLong("timeout in ticks");
+		// on_state section:
+		ConfigurationSection onSection = hideItemSection.getConfigurationSection("on state");
+		
+		// item:
+		Material itemOn = Material.getMaterial(onSection.getString("item"));
 		if (itemOn == null) itemOn = Material.REDSTONE_TORCH_ON;
-		String hideItemOnName = ChatColor.translateAlternateColorCodes('&', config.getString("hide players item.on.item name"));
+		String hideItemOnName = ChatColor.translateAlternateColorCodes('&', onSection.getString("item name"));
 		List<String> hideItemOnLore = new ArrayList<String>();
-		for (String string : config.getStringList("hide players item.on.lore")) {
+		for (String string : onSection.getStringList("lore")) {
 			hideItemOnLore.add(ChatColor.translateAlternateColorCodes('&', string));
 		}
 		this.hideItemOn = setItemMeta(new ItemStack(itemOn), hideItemOnName, hideItemOnLore);
 		
-		// off
-		Material itemOff = Material.getMaterial(config.getString("hide players item.off.item"));
+		// message:
+		this.hideItemMessageOnUseOn = ChatColor.translateAlternateColorCodes('&', onSection.getString("message on use"));
+		
+		// off-state section:
+		ConfigurationSection offSection = hideItemSection.getConfigurationSection("off state");
+		
+		// item:
+		Material itemOff = Material.getMaterial(offSection.getString("item"));
 		if (itemOff == null) itemOn = Material.REDSTONE_TORCH_OFF;
-		String hideItemOffName = ChatColor.translateAlternateColorCodes('&', config.getString("hide players item.off.item name"));
+		String hideItemOffName = ChatColor.translateAlternateColorCodes('&', offSection.getString("item name"));
 		List<String> hideItemOffLore = new ArrayList<String>();
-		for (String string : config.getStringList("hide players item.off.lore")) {
+		for (String string : offSection.getStringList("lore")) {
 			hideItemOffLore.add(ChatColor.translateAlternateColorCodes('&', string));
 		}
 		this.hideItemOff = setItemMeta(new ItemStack(itemOff), hideItemOffName, hideItemOffLore);
 		
-		this.hideItemMessageOnUseOn = ChatColor.translateAlternateColorCodes('&', config.getString("hide players item.on.message on use"));
-		this.hideItemMessageOnUseOff = ChatColor.translateAlternateColorCodes('&', config.getString("hide players item.off.message on use"));
+		// message
+		this.hideItemMessageOnUseOff = ChatColor.translateAlternateColorCodes('&', offSection.getString("message on use"));
 		
 	}
 	

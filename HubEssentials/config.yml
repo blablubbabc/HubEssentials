@@ -43,14 +43,14 @@ clear inventory: false
 # hide players item
 hide players item:
   enabled: true
-  'timeout in ticks': 20
-  'on':
+  timeout in ticks: 20
+  on state:
     item: "REDSTONE_TORCH_ON"
     item name: "&aPlayers are visible"
     lore:
     - "&7Click to hide all players"
     message on use: "&bAll players are now hidden."
-  'off':
+  off state:
     item: "REDSTONE_TORCH_OFF"
     item name: "&cPlayers are hidden"
     lore:
