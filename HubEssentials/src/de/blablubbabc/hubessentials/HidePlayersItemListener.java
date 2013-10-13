@@ -74,29 +74,30 @@ public class HidePlayersItemListener extends AbstractListener {
 		String playerName = player.getName();
 		ItemStack item = player.getItemInHand();
 		if (item != null) {
-			if (timeouts.contains(playerName)) return;
-			boolean switched = false;
-			
 			if (item.isSimilar(plugin.config.hideItemOn)) {
+				event.setCancelled(true);
+				if (timeouts.contains(playerName)) return;
+				
 				player.setItemInHand(plugin.config.hideItemOff.clone());
 				player.sendMessage(plugin.config.hideItemMessageOnUseOn);
 				for (Player other : Bukkit.getServer().getOnlinePlayers()) {
 					player.hidePlayer(other);
 				}
-				switched = true;
+				
+				setLastUseTime(playerName, System.currentTimeMillis());
+				player.updateInventory();
 			} else if (item.isSimilar(plugin.config.hideItemOff)) {
+				event.setCancelled(true);
+				if (timeouts.contains(playerName)) return;
+				
 				player.setItemInHand(plugin.config.hideItemOn.clone());
 				player.sendMessage(plugin.config.hideItemMessageOnUseOff);	
 				for (Player other : Bukkit.getServer().getOnlinePlayers()) {
 					player.showPlayer(other);
 				}
-				switched = true;
-			}
-			
-			if (switched) {
-				event.setCancelled(true);
-				player.updateInventory();
+				
 				setLastUseTime(playerName, System.currentTimeMillis());
+				player.updateInventory();
 			}
 		}
 	}
