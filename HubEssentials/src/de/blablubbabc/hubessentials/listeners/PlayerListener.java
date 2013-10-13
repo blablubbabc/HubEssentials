@@ -1,7 +1,6 @@
-package de.blablubbabc.hubessentials;
+package de.blablubbabc.hubessentials.listeners;
 
 import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
 import org.bukkit.World;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -16,8 +15,13 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+
+import de.blablubbabc.hubessentials.HubEssentials;
+import de.blablubbabc.hubessentials.Utils;
 
 public class PlayerListener extends AbstractListener {
 
@@ -40,10 +44,18 @@ public class PlayerListener extends AbstractListener {
 			}
 		}
 		
-		player.setGameMode(GameMode.ADVENTURE);
+		if (plugin.config.changeGamemode) {
+			player.setGameMode(plugin.config.gamemode);
+		}
 		
 		if (plugin.config.clearInventory) {
 			clearInv(player);
+		}
+		
+		// spawn items:
+		Inventory inventory = player.getInventory();
+		for (ItemStack item : plugin.config.spawnItems) {
+			Utils.fillUpSimilairItems(inventory, item, item.getAmount());
 		}
 		
 		if (plugin.config.speed) {

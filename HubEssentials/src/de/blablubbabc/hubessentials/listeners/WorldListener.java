@@ -1,8 +1,10 @@
-package de.blablubbabc.hubessentials;
+package de.blablubbabc.hubessentials.listeners;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.weather.ThunderChangeEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
+
+import de.blablubbabc.hubessentials.HubEssentials;
 
 public class WorldListener extends AbstractListener {
 

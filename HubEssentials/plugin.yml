@@ -8,3 +8,6 @@ permissions:
     hubessentials.admin:
         description: Some bypasses for admins.
         default: op
+    hubessentials.pushing.block:
+        description: Can't be pushed around by the pushing snowballs.
+        default: false

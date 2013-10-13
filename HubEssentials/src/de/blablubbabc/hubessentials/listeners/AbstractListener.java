@@ -1,6 +1,8 @@
-package de.blablubbabc.hubessentials;
+package de.blablubbabc.hubessentials.listeners;
 
 import org.bukkit.event.Listener;
+
+import de.blablubbabc.hubessentials.HubEssentials;
 
 public abstract class AbstractListener implements Listener {
 	protected HubEssentials plugin;

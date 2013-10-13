@@ -1,12 +1,14 @@
-####################################
-########## Hub Essentials ##########
-####################################
-# world settings
+#------------------------------#
+#------- Hub Essentials -------#
+#------------------------------#
+
+# world settings:
 world settings:
   limit to enabled worlds: false
   enabled worlds:
   - "world"
   main world: "world"
+
 # potion effects:
 effects:
   speed:
@@ -15,6 +17,7 @@ effects:
   jump:
     enabled: true
     level: 3
+
 # disabled stuff:
 disabled:
   hunger: true
@@ -26,6 +29,7 @@ disabled:
     disabled: false
     inform: true
     inform message: "&bSorry, chat is disabled."
+
 # join and leave messages:
 messages:
   join:
@@ -34,16 +38,39 @@ messages:
   quit:
     enabled: true
     message: "&8[&4-&8] &e{player} has left."
+
 # spawn at main world spawn ?
 spawn at main world spawn: true
+
 # fake day
 fake day: true
+
 # clear inventory on join and leave
 clear inventory: false
-# hide players item
+
+# initial gamemode
+initial gamemode:
+  apply: true
+  gamemode: 2
+
+# spawn items:
+spawn items:
+  SNOW_BALL:
+    name: "Snowball"
+    amount: 64
+    lore: []
+
+# special stuff:
+
+# pushing snowballs:
+pushing snowballs:
+  enabled: true
+
+# hide players item:
 hide players item:
   enabled: true
-  timeout in ticks: 20
+  timeout in ticks: 100
+  timeout message: "&7You have to wait a few seconds before you can use that item again."
   on state:
     item: "REDSTONE_TORCH_ON"
     item name: "&aPlayers are visible"

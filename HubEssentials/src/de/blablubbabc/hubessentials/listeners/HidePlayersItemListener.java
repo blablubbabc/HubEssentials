@@ -1,4 +1,4 @@
-package de.blablubbabc.hubessentials;
+package de.blablubbabc.hubessentials.listeners;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -11,8 +11,10 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+
+import de.blablubbabc.hubessentials.HubEssentials;
+import de.blablubbabc.hubessentials.Utils;
 
 public class HidePlayersItemListener extends AbstractListener {
 
@@ -25,9 +27,7 @@ public class HidePlayersItemListener extends AbstractListener {
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void playerJoinEvent(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
-		
-		removeInventoryItemsAll(player.getInventory(), plugin.config.hideItemOn);
-		removeInventoryItemsAll(player.getInventory(), plugin.config.hideItemOff);
+		Utils.removeAllSimilairItems(player.getInventory(), plugin.config.hideItemOn, plugin.config.hideItemOff);
 		
 		player.getInventory().addItem(plugin.config.hideItemOn.clone());
 	}
@@ -35,17 +35,7 @@ public class HidePlayersItemListener extends AbstractListener {
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void playerQuitEvent(PlayerQuitEvent event) {
 		Player player = event.getPlayer();
-		
-		removeInventoryItemsAll(player.getInventory(), plugin.config.hideItemOn);
-		removeInventoryItemsAll(player.getInventory(), plugin.config.hideItemOff);
-	}
-	
-	private void removeInventoryItemsAll(Inventory inv, ItemStack item) {
-		for (ItemStack is : inv.getContents()) {
-			if (is != null && is.isSimilar(item)) {
-				inv.remove(is);
-			}
-		}
+		Utils.removeAllSimilairItems(player.getInventory(), plugin.config.hideItemOn, plugin.config.hideItemOff);
 	}
 	
 	private void removeLastUseTime(String playerName) {
@@ -76,7 +66,10 @@ public class HidePlayersItemListener extends AbstractListener {
 		if (item != null) {
 			if (item.isSimilar(plugin.config.hideItemOn)) {
 				event.setCancelled(true);
-				if (timeouts.contains(playerName)) return;
+				if (timeouts.contains(playerName)) {
+					player.sendMessage(plugin.config.hideItemTimeoutMessage);
+					return;
+				}
 				
 				player.setItemInHand(plugin.config.hideItemOff.clone());
 				player.sendMessage(plugin.config.hideItemMessageOnUseOn);
@@ -88,7 +81,10 @@ public class HidePlayersItemListener extends AbstractListener {
 				player.updateInventory();
 			} else if (item.isSimilar(plugin.config.hideItemOff)) {
 				event.setCancelled(true);
-				if (timeouts.contains(playerName)) return;
+				if (timeouts.contains(playerName)) {
+					player.sendMessage(plugin.config.hideItemTimeoutMessage);
+					return;
+				}
 				
 				player.setItemInHand(plugin.config.hideItemOn.clone());
 				player.sendMessage(plugin.config.hideItemMessageOnUseOff);	

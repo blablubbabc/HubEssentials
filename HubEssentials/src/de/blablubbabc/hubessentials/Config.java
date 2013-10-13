@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -45,17 +46,28 @@ public class Config {
 	public boolean spawnAtMainSpawn;
 	public boolean fakeDay;
 	
+	// gamemode
+	public boolean changeGamemode;
+	public GameMode gamemode;
+	
 	// clear inventory on join and leave:
 	public boolean clearInventory;
+	
+	// spawn items:
+	public List<ItemStack> spawnItems = new ArrayList<ItemStack>();
 	
 	// extra gadgets:
 	
 	// hide torch:
 	public boolean hideItemEnabled;
+	
 	public long hideItemTimeoutInTicks;
+	public String hideItemTimeoutMessage;
+	
 	public ItemStack hideItemOn;
-	public ItemStack hideItemOff;
 	public String hideItemMessageOnUseOn;
+	
+	public ItemStack hideItemOff;
 	public String hideItemMessageOnUseOff;
 	
 	public Config(Plugin plugin) {
@@ -101,12 +113,35 @@ public class Config {
 		// clear inventory on join and leave:
 		this.clearInventory = config.getBoolean("clear inventory");
 		
+		// gamemode:
+		ConfigurationSection gamemodeSection = config.getConfigurationSection("initial gamemode");
+		this.changeGamemode = gamemodeSection.getBoolean("apply");
+		this.gamemode = GameMode.getByValue(gamemodeSection.getInt("gamemode"));
+		
+		// spawn items:
+		ConfigurationSection spawnItemsSection = config.getConfigurationSection("spawn items");
+		for (String itemMaterial : spawnItemsSection.getStringList("spawn items")) {
+			Material material = Material.getMaterial(itemMaterial);
+			if (material == null) continue;
+			
+			ConfigurationSection itemSection = spawnItemsSection.getConfigurationSection(itemMaterial);
+			
+			int amount = itemSection.getInt("amount", 1);
+			String itemName = itemSection.getString("name");
+			List<String> itemLore = itemSection.getStringList("lore");
+			
+			spawnItems.add(setItemMeta(new ItemStack(material, amount), itemName, itemLore));
+		}
+		
+		
 		// extra gadgets:
 		
 		// hide torch:
 		ConfigurationSection hideItemSection = config.getConfigurationSection("hide players item");
 		this.hideItemEnabled = hideItemSection.getBoolean("enabled");
 		this.hideItemTimeoutInTicks = hideItemSection.getLong("timeout in ticks");
+		this.hideItemTimeoutMessage = ChatColor.translateAlternateColorCodes('&', hideItemSection.getString("timeout message"));
+		
 		// on_state section:
 		ConfigurationSection onSection = hideItemSection.getConfigurationSection("on state");
 		
