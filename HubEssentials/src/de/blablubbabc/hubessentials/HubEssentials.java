@@ -6,6 +6,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import de.blablubbabc.hubessentials.listeners.HidePlayersItemListener;
 import de.blablubbabc.hubessentials.listeners.PlayerListener;
+import de.blablubbabc.hubessentials.listeners.PushingSnowballsListener;
 import de.blablubbabc.hubessentials.listeners.WorldListener;
 
 public class HubEssentials extends JavaPlugin {
@@ -27,6 +28,7 @@ public class HubEssentials extends JavaPlugin {
 		
 		// gadgets
 		if (config.hideItemEnabled) new HidePlayersItemListener(this);
+		if (config.pushingSnowballsEnabled) new PushingSnowballsListener(this); 
 		
 		
 		getServer().getScheduler().runTaskTimer(this, new Runnable() {

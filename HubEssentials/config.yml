@@ -65,6 +65,7 @@ spawn items:
 # pushing snowballs:
 pushing snowballs:
   enabled: true
+  force: 2.5
 
 # hide players item:
 hide players item:

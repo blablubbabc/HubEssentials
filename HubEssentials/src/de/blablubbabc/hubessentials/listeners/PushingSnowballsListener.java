@@ -21,7 +21,7 @@ public class PushingSnowballsListener extends AbstractListener {
 		if (damager.getType() == EntityType.SNOWBALL) {
 			Player target = (Player) event.getEntity();
 			if (!target.hasPermission(plugin.BYPASS_PUSHING_PERMISSION)) {
-				target.setVelocity(damager.getVelocity().multiply(3));
+				target.setVelocity(damager.getVelocity().multiply(plugin.config.pushingSnowballsForce));
 			}
 		}
 	}
