@@ -124,9 +124,12 @@ public class Config {
 		
 		// spawn items:
 		ConfigurationSection spawnItemsSection = config.getConfigurationSection("spawn items");
-		for (String itemMaterial : spawnItemsSection.getStringList("spawn items")) {
+		for (String itemMaterial : spawnItemsSection.getKeys(false)) {
 			Material material = Material.getMaterial(itemMaterial);
-			if (material == null) continue;
+			if (material == null) {
+				plugin.getLogger().warning("Couldn't load spawn item of type '" + itemMaterial + "'");
+				continue;
+			}
 			
 			ConfigurationSection itemSection = spawnItemsSection.getConfigurationSection(itemMaterial);
 			

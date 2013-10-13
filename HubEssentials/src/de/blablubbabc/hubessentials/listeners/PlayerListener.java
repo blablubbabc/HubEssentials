@@ -29,6 +29,7 @@ public class PlayerListener extends AbstractListener {
 		super(plugin);
 	}
 
+	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
@@ -57,6 +58,7 @@ public class PlayerListener extends AbstractListener {
 		for (ItemStack item : plugin.config.spawnItems) {
 			Utils.fillUpSimilairItems(inventory, item, item.getAmount());
 		}
+		player.updateInventory();
 		
 		if (plugin.config.speed) {
 			player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, plugin.config.speedlevel));

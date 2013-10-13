@@ -68,31 +68,29 @@ public class HidePlayersItemListener extends AbstractListener {
 				event.setCancelled(true);
 				if (timeouts.contains(playerName)) {
 					player.sendMessage(plugin.config.hideItemTimeoutMessage);
-					return;
+				} else {
+					player.setItemInHand(plugin.config.hideItemOff.clone());
+					player.sendMessage(plugin.config.hideItemMessageOnUseOn);
+					for (Player other : Bukkit.getServer().getOnlinePlayers()) {
+						player.hidePlayer(other);
+					}
+					
+					setLastUseTime(playerName, System.currentTimeMillis());
 				}
-				
-				player.setItemInHand(plugin.config.hideItemOff.clone());
-				player.sendMessage(plugin.config.hideItemMessageOnUseOn);
-				for (Player other : Bukkit.getServer().getOnlinePlayers()) {
-					player.hidePlayer(other);
-				}
-				
-				setLastUseTime(playerName, System.currentTimeMillis());
 				player.updateInventory();
 			} else if (item.isSimilar(plugin.config.hideItemOff)) {
 				event.setCancelled(true);
 				if (timeouts.contains(playerName)) {
 					player.sendMessage(plugin.config.hideItemTimeoutMessage);
-					return;
+				} else {
+					player.setItemInHand(plugin.config.hideItemOn.clone());
+					player.sendMessage(plugin.config.hideItemMessageOnUseOff);	
+					for (Player other : Bukkit.getServer().getOnlinePlayers()) {
+						player.showPlayer(other);
+					}
+					
+					setLastUseTime(playerName, System.currentTimeMillis());
 				}
-				
-				player.setItemInHand(plugin.config.hideItemOn.clone());
-				player.sendMessage(plugin.config.hideItemMessageOnUseOff);	
-				for (Player other : Bukkit.getServer().getOnlinePlayers()) {
-					player.showPlayer(other);
-				}
-				
-				setLastUseTime(playerName, System.currentTimeMillis());
 				player.updateInventory();
 			}
 		}

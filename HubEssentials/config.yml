@@ -53,7 +53,7 @@ initial gamemode:
   apply: true
   gamemode: 2
 
-# spawn items:
+# items a player get when he spawns:
 spawn items:
   SNOW_BALL:
     name: "Snowball"

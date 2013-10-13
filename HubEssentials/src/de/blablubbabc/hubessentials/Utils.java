@@ -35,9 +35,9 @@ public class Utils {
 			}
 		}
 		if (amount > 0) {
-			item = item.clone();
-			item.setAmount(amount);
-			inv.addItem(item);
+			ItemStack newItem = item.clone();
+			newItem.setAmount(amount);
+			inv.addItem(newItem);
 		}
 	}
 }
