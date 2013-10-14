@@ -49,7 +49,7 @@ public class PlayerListener extends AbstractListener {
 			player.setGameMode(plugin.config.gamemode);
 		}
 		
-		if (plugin.config.clearInventory) {
+		if (plugin.config.clearInventory && !player.hasPermission(plugin.KEEP_INVENTORY_PERMISSION)) {
 			clearInv(player);
 		}
 		
@@ -95,7 +95,7 @@ public class PlayerListener extends AbstractListener {
 			event.setQuitMessage(plugin.config.customQuitMessage.replace("{player}", player.getName()));
 		}
 		
-		if (plugin.config.clearInventory) {
+		if (plugin.config.clearInventory && !player.hasPermission(plugin.KEEP_INVENTORY_PERMISSION)) {
 			clearInv(player);
 		}
 	}

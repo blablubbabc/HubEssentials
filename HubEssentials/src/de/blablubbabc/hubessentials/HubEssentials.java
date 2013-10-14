@@ -12,7 +12,7 @@ import de.blablubbabc.hubessentials.listeners.WorldListener;
 public class HubEssentials extends JavaPlugin {
 
 	public String ADMIN_PERMISSION = "hubessentials.admin";
-	
+	public String KEEP_INVENTORY_PERMISSION = "hubessentials.keepinventory";
 	public String BYPASS_PUSHING_PERMISSION = "hubessentials.pushing.block";
 	
 	public Config config;

@@ -8,6 +8,9 @@ permissions:
     hubessentials.admin:
         description: Some bypasses for admins.
         default: op
+    hubessentials.keepinventory:
+        description: Players with this permission will keep there inventory when otherwise it would be cleared.
+        default: op
     hubessentials.pushing.block:
         description: Can't be pushed around by the pushing snowballs.
         default: false

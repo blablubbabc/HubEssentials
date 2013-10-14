@@ -46,7 +46,7 @@ spawn at main world spawn: true
 fake day: true
 
 # clear inventory on join and leave
-clear inventory: false
+clear inventory: true
 
 # initial gamemode
 initial gamemode:
