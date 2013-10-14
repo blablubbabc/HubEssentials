@@ -19,6 +19,7 @@ import de.blablubbabc.hubessentials.Utils;
 public class HidePlayersItemListener extends AbstractListener {
 
 	private Set<String> timeouts = new HashSet<String>();
+	private Set<String> toggledInvisibility = new HashSet<String>();
 	
 	public HidePlayersItemListener(HubEssentials plugin) {
 		super(plugin);
@@ -30,12 +31,18 @@ public class HidePlayersItemListener extends AbstractListener {
 		Utils.removeAllSimilairItems(player.getInventory(), plugin.config.hideItemOn, plugin.config.hideItemOff);
 		
 		player.getInventory().addItem(plugin.config.hideItemOn.clone());
+		
+		for (String playerName : toggledInvisibility) {
+			Player otherPlayer = Bukkit.getPlayer(playerName);
+			otherPlayer.hidePlayer(player);
+		}
 	}
 	
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void playerQuitEvent(PlayerQuitEvent event) {
 		Player player = event.getPlayer();
 		Utils.removeAllSimilairItems(player.getInventory(), plugin.config.hideItemOn, plugin.config.hideItemOff);
+		toggledInvisibility.remove(player.getName());
 	}
 	
 	private void removeLastUseTime(String playerName) {
@@ -55,42 +62,40 @@ public class HidePlayersItemListener extends AbstractListener {
 		}
 	}
 
+	private void toggleInvisibility(Player player) {
+		String playerName = player.getName();
+		if (timeouts.contains(playerName)) {
+			player.sendMessage(plugin.config.hideItemTimeoutMessage);
+		} else {
+			if (toggledInvisibility.contains(playerName)) {
+				player.setItemInHand(plugin.config.hideItemOn.clone());
+				player.sendMessage(plugin.config.hideItemMessageOnUseOff);	
+				for (Player other : Bukkit.getServer().getOnlinePlayers()) {
+					player.showPlayer(other);
+				}
+				toggledInvisibility.remove(playerName);
+			} else {
+				player.setItemInHand(plugin.config.hideItemOff.clone());
+				player.sendMessage(plugin.config.hideItemMessageOnUseOn);
+				for (Player other : Bukkit.getServer().getOnlinePlayers()) {
+					player.hidePlayer(other);
+				}
+				toggledInvisibility.add(playerName);
+			}
+			setLastUseTime(playerName, System.currentTimeMillis());
+		}
+	}
+	
 	@SuppressWarnings("deprecation")
 	@EventHandler(ignoreCancelled = false)
 	public void playerInteract(PlayerInteractEvent event) {
 		if (event.getAction() == Action.PHYSICAL) return;
-		
 		Player player = event.getPlayer();
-		String playerName = player.getName();
 		ItemStack item = player.getItemInHand();
 		if (item != null) {
-			if (item.isSimilar(plugin.config.hideItemOn)) {
+			if (item.isSimilar(plugin.config.hideItemOn) || item.isSimilar(plugin.config.hideItemOff)) {
 				event.setCancelled(true);
-				if (timeouts.contains(playerName)) {
-					player.sendMessage(plugin.config.hideItemTimeoutMessage);
-				} else {
-					player.setItemInHand(plugin.config.hideItemOff.clone());
-					player.sendMessage(plugin.config.hideItemMessageOnUseOn);
-					for (Player other : Bukkit.getServer().getOnlinePlayers()) {
-						player.hidePlayer(other);
-					}
-					
-					setLastUseTime(playerName, System.currentTimeMillis());
-				}
-				player.updateInventory();
-			} else if (item.isSimilar(plugin.config.hideItemOff)) {
-				event.setCancelled(true);
-				if (timeouts.contains(playerName)) {
-					player.sendMessage(plugin.config.hideItemTimeoutMessage);
-				} else {
-					player.setItemInHand(plugin.config.hideItemOn.clone());
-					player.sendMessage(plugin.config.hideItemMessageOnUseOff);	
-					for (Player other : Bukkit.getServer().getOnlinePlayers()) {
-						player.showPlayer(other);
-					}
-					
-					setLastUseTime(playerName, System.currentTimeMillis());
-				}
+				toggleInvisibility(player);
 				player.updateInventory();
 			}
 		}
