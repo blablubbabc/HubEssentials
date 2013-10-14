@@ -9,6 +9,11 @@ world settings:
   - "world"
   main world: "world"
 
+# respawn if below this height:
+respawn if below:
+  enabled: true
+  height: 0
+
 # potion effects:
 effects:
   speed:

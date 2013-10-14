@@ -30,27 +30,27 @@ public class HubEssentials extends JavaPlugin {
 		if (config.hideItemEnabled) new HidePlayersItemListener(this);
 		if (config.pushingSnowballsEnabled) new PushingSnowballsListener(this); 
 		
-		
-		getServer().getScheduler().runTaskTimer(this, new Runnable() {
-			
-			@Override
-			public void run() {
-				World world = getServer().getWorld(config.mainWorld);
-				for (Player player : getServer().getOnlinePlayers()) {
-					if (player.getLocation().getY() < 0) {
-						// respawn:
-						player.closeInventory();
-						player.leaveVehicle();
-						if (world != null) {
-							player.teleport(world.getSpawnLocation());
-						} else {
-							player.damage(100.0D);
+		if (config.autorRespawnEnabled) {
+			getServer().getScheduler().runTaskTimer(this, new Runnable() {
+				
+				@Override
+				public void run() {
+					World world = getServer().getWorld(config.mainWorld);
+					for (Player player : getServer().getOnlinePlayers()) {
+						if (player.getLocation().getY() < config.autoRespawnHeight) {
+							// respawn:
+							player.closeInventory();
+							player.leaveVehicle();
+							if (world != null) {
+								player.teleport(world.getSpawnLocation());
+							} else {
+								player.damage(100.0D);
+							}
 						}
-						
 					}
 				}
-			}
-		}, 1L, 20L);
+			}, 1L, 20L);
+		}
 	}
 	
 }

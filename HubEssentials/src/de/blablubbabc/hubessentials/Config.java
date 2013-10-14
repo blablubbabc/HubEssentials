@@ -19,6 +19,10 @@ public class Config {
 	public List<String> enabledWorlds;
 	public String mainWorld;
 	
+	// respawn if below this height:
+	public boolean autorRespawnEnabled;
+	public int autoRespawnHeight;
+	
 	// potion effects:
 	public boolean speed;
 	public int speedlevel;
@@ -86,6 +90,10 @@ public class Config {
 		this.limitedToCertainWorlds = config.getBoolean("world settings.limit to enabled worlds");
 		this.enabledWorlds = config.getStringList("world settings.enabled worlds");
 		this.mainWorld = config.getString("world settings.main world");
+		
+		// respawn if below this height:
+		this.autorRespawnEnabled = config.getBoolean("respawn if below.enabled");
+		this.autoRespawnHeight = config.getInt("respawn if below.height");
 		
 		// potion effects:
 		this.speed = config.getBoolean("effects.speed.enabled");
