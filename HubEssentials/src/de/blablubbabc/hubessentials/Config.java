@@ -65,6 +65,7 @@ public class Config {
 	// pushing snowballs:
 	public boolean pushingSnowballsEnabled;
 	public double pushingSnowballsForce;
+	public double pushingSnowballsForceY;
 	
 	// hide torch:
 	public boolean hideItemEnabled;
@@ -157,6 +158,7 @@ public class Config {
 		ConfigurationSection pushingSnowballsSection = config.getConfigurationSection("pushing snowballs");
 		pushingSnowballsEnabled = pushingSnowballsSection.getBoolean("enabled");
 		pushingSnowballsForce = pushingSnowballsSection.getDouble("force");
+		pushingSnowballsForceY = pushingSnowballsSection.getDouble("force y");
 		
 		// hide torch:
 		ConfigurationSection hideItemSection = config.getConfigurationSection("hide players item");
