@@ -20,7 +20,7 @@ public class Config {
 	public String mainWorld;
 	
 	// respawn if below this height:
-	public boolean autorRespawnEnabled;
+	public boolean autoRespawnEnabled;
 	public int autoRespawnHeight;
 	
 	// potion effects:
@@ -80,9 +80,9 @@ public class Config {
 	
 	public Config(Plugin plugin) {
 		// default config:
+		plugin.saveDefaultConfig();
 		FileConfiguration config = plugin.getConfig();
 		config.options().copyDefaults(true);
-		plugin.saveDefaultConfig();
 		//plugin.saveConfig();
 		
 		// load values:
@@ -93,8 +93,9 @@ public class Config {
 		this.mainWorld = config.getString("world settings.main world");
 		
 		// respawn if below this height:
-		this.autorRespawnEnabled = config.getBoolean("respawn if below.enabled");
-		this.autoRespawnHeight = config.getInt("respawn if below.height");
+		ConfigurationSection respawnIfBelowSection = config.getConfigurationSection("respawn if below");
+		this.autoRespawnEnabled = respawnIfBelowSection.getBoolean("enabled");
+		this.autoRespawnHeight = respawnIfBelowSection.getInt("height");
 		
 		// potion effects:
 		this.speed = config.getBoolean("effects.speed.enabled");

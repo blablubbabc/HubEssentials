@@ -14,14 +14,14 @@ public class PushingSnowballsListener extends AbstractListener {
 		super(plugin);
 	}
 
-	@EventHandler
+	@EventHandler(ignoreCancelled = false)
 	public void onSnowballHit(EntityDamageByEntityEvent event) {
 		if (event.getEntityType() != EntityType.PLAYER) return;
 		Entity damager = event.getDamager();
 		if (damager.getType() == EntityType.SNOWBALL) {
 			Player target = (Player) event.getEntity();
 			if (!target.hasPermission(plugin.BYPASS_PUSHING_PERMISSION)) {
-				target.setVelocity(damager.getVelocity().multiply(plugin.config.pushingSnowballsForce));
+				target.setVelocity(damager.getVelocity().normalize().multiply(plugin.config.pushingSnowballsForce));
 			}
 		}
 	}

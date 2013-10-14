@@ -50,7 +50,7 @@ spawn at main world spawn: true
 # fake day
 fake day: true
 
-# clear inventory on join and leave
+# clear inventory on join and leave:
 clear inventory: true
 
 # initial gamemode
@@ -70,7 +70,7 @@ spawn items:
 # pushing snowballs:
 pushing snowballs:
   enabled: true
-  force: 2.5
+  force: 2.0
 
 # hide players item:
 hide players item:

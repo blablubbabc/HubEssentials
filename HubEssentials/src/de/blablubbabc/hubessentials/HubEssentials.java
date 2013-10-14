@@ -30,7 +30,7 @@ public class HubEssentials extends JavaPlugin {
 		if (config.hideItemEnabled) new HidePlayersItemListener(this);
 		if (config.pushingSnowballsEnabled) new PushingSnowballsListener(this); 
 		
-		if (config.autorRespawnEnabled) {
+		if (config.autoRespawnEnabled) {
 			getServer().getScheduler().runTaskTimer(this, new Runnable() {
 				
 				@Override
