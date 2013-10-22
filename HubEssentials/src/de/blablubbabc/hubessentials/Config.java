@@ -143,8 +143,11 @@ public class Config {
 			ConfigurationSection itemSection = spawnItemsSection.getConfigurationSection(itemMaterial);
 			
 			int amount = itemSection.getInt("amount", 1);
-			String itemName = itemSection.getString("name");
-			List<String> itemLore = itemSection.getStringList("lore");
+			String itemName = ChatColor.translateAlternateColorCodes('&', itemSection.getString("name"));
+			List<String> itemLore = new ArrayList<String>();
+			for (String loreString : itemSection.getStringList("lore")) {
+				itemLore.add(ChatColor.translateAlternateColorCodes('&', loreString));
+			}
 			
 			spawnItems.add(setItemMeta(new ItemStack(material, amount), itemName, itemLore));
 		}
