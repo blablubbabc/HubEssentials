@@ -83,8 +83,6 @@ public class Config {
 		// default config:
 		plugin.saveDefaultConfig();
 		FileConfiguration config = plugin.getConfig();
-		config.options().copyDefaults(true);
-		//plugin.saveConfig();
 		
 		// load values:
 		

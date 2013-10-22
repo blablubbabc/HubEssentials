@@ -64,6 +64,12 @@ spawn items:
     name: "Snowball"
     amount: 64
     lore: []
+  COMPASS:
+    name: "&eServer Selector"
+    amount: 1
+    lore:
+    - "&7Click me, to select the server"
+    - "&7you want to connect to"
 
 # special stuff:
 
