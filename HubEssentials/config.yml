@@ -82,8 +82,8 @@ pushing snowballs:
 # double jumping:
 double jump:
   enabled: true
-  force: 1.0
-  force y: 1.0
+  force: 2.0
+  force y: 1.5
 
 # hide players item:
 hide players item:

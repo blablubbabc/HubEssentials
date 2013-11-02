@@ -38,11 +38,12 @@ public class DoubleJumpListener extends AbstractListener {
 	public void onPlayerToggleFlight(PlayerToggleFlightEvent event) {
 		Player player = event.getPlayer();
 		if (player.getGameMode() == GameMode.CREATIVE) return;
+		event.setCancelled(true);
 		player.setAllowFlight(false);
 		player.setFlying(false);
 		
 		Location location = player.getLocation();
-		Vector velocity = location.getDirection();
+		Vector velocity = location.getDirection().setY(0).normalize();
 		// y value:
 		velocity.setY(plugin.config.doubleJumpForceY).normalize();
 		// final strength:
@@ -52,6 +53,6 @@ public class DoubleJumpListener extends AbstractListener {
 		if (velocity.lengthSquared() > 100) velocity.normalize().multiply(10);
 		
 		player.setVelocity(velocity);
-		location.getWorld().playSound(location, Sound.ENDERDRAGON_WINGS, 1.0F, -5.0F);
+		player.playSound(location, Sound.ENDERDRAGON_WINGS, 1.0F, 2.0F);
 	}
 }
