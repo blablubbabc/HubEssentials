@@ -67,6 +67,11 @@ public class Config {
 	public double pushingSnowballsForce;
 	public double pushingSnowballsForceY;
 	
+	// double jump:
+	public boolean doubleJumpEnabled;
+	public double doubleJumpForce;
+	public double doubleJumpForceY;
+	
 	// hide torch:
 	public boolean hideItemEnabled;
 	
@@ -160,6 +165,12 @@ public class Config {
 		pushingSnowballsEnabled = pushingSnowballsSection.getBoolean("enabled");
 		pushingSnowballsForce = pushingSnowballsSection.getDouble("force");
 		pushingSnowballsForceY = pushingSnowballsSection.getDouble("force y");
+		
+		// double jump:
+		ConfigurationSection doubleJumpSection = config.getConfigurationSection("double jump");
+		doubleJumpEnabled = doubleJumpSection.getBoolean("enabled");
+		doubleJumpForce = doubleJumpSection.getDouble("force");
+		doubleJumpForceY = doubleJumpSection.getDouble("force y");
 		
 		// hide torch:
 		ConfigurationSection hideItemSection = config.getConfigurationSection("hide players item");

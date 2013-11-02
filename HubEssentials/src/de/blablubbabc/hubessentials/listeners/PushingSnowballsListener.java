@@ -30,7 +30,7 @@ public class PushingSnowballsListener extends AbstractListener {
 				velocity.multiply(length * plugin.config.pushingSnowballsForce);
 				
 				// just in case:
-				if (velocity.lengthSquared() > 10) velocity.normalize().multiply(10);
+				if (velocity.lengthSquared() > 100) velocity.normalize().multiply(10);
 				
 				target.setVelocity(velocity);
 			}

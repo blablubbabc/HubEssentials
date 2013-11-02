@@ -4,6 +4,7 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import de.blablubbabc.hubessentials.listeners.DoubleJumpListener;
 import de.blablubbabc.hubessentials.listeners.HidePlayersItemListener;
 import de.blablubbabc.hubessentials.listeners.PlayerListener;
 import de.blablubbabc.hubessentials.listeners.PushingSnowballsListener;
@@ -28,7 +29,8 @@ public class HubEssentials extends JavaPlugin {
 		
 		// gadgets
 		if (config.hideItemEnabled) new HidePlayersItemListener(this);
-		if (config.pushingSnowballsEnabled) new PushingSnowballsListener(this); 
+		if (config.pushingSnowballsEnabled) new PushingSnowballsListener(this);
+		if (config.doubleJumpEnabled) new DoubleJumpListener(this);
 		
 		if (config.autoRespawnEnabled) {
 			getServer().getScheduler().runTaskTimer(this, new Runnable() {
