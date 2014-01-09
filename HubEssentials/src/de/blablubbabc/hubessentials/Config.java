@@ -103,9 +103,9 @@ public class Config {
 		
 		// potion effects:
 		this.speed = config.getBoolean("effects.speed.enabled");
-		this.speedlevel = config.getInt("effects.speed.level");
+		this.speedlevel = config.getInt("effects.speed.level") - 1; // internal levels seem to be be starting at 0 ..
 		this.jump = config.getBoolean("effects.jump.enabled");
-		this.jumplevel = config.getInt("effects.jump.level");
+		this.jumplevel = config.getInt("effects.jump.level") - 1;
 		
 		// disabled:
 		this.hungerDisabled = config.getBoolean("disabled.hunger");

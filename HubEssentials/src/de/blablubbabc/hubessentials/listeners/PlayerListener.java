@@ -98,6 +98,14 @@ public class PlayerListener extends AbstractListener {
 		if (plugin.config.clearInventory && !player.hasPermission(plugin.KEEP_INVENTORY_PERMISSION)) {
 			clearInv(player);
 		}
+
+		if (plugin.config.speed) {
+			player.removePotionEffect(PotionEffectType.SPEED);
+		}
+
+		if (plugin.config.jump) {
+			player.removePotionEffect(PotionEffectType.JUMP);
+		}
 	}
 
 	@EventHandler
