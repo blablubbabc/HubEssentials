@@ -200,8 +200,8 @@ public class Config {
 		
 		// item:
 		Material itemOff = Material.getMaterial(offSection.getString("item"));
-		if (itemOff == null) itemOn = Material.INK_SACK;
-		short itemDataOff = (short) onSection.getInt("data", 8);
+		if (itemOff == null) itemOff = Material.INK_SACK;
+		short itemDataOff = (short) offSection.getInt("data", 8);
 		String hideItemOffName = ChatColor.translateAlternateColorCodes('&', offSection.getString("item name"));
 		List<String> hideItemOffLore = new ArrayList<String>();
 		for (String string : offSection.getStringList("lore")) {
