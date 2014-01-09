@@ -183,13 +183,14 @@ public class Config {
 		
 		// item:
 		Material itemOn = Material.getMaterial(onSection.getString("item"));
-		if (itemOn == null) itemOn = Material.REDSTONE_TORCH_ON;
+		if (itemOn == null) itemOn = Material.INK_SACK;
+		short itemDataOn = (short) onSection.getInt("data", 10);
 		String hideItemOnName = ChatColor.translateAlternateColorCodes('&', onSection.getString("item name"));
 		List<String> hideItemOnLore = new ArrayList<String>();
 		for (String string : onSection.getStringList("lore")) {
 			hideItemOnLore.add(ChatColor.translateAlternateColorCodes('&', string));
 		}
-		this.hideItemOn = setItemMeta(new ItemStack(itemOn), hideItemOnName, hideItemOnLore);
+		this.hideItemOn = setItemMeta(new ItemStack(itemOn, 1, itemDataOn), hideItemOnName, hideItemOnLore);
 		
 		// message:
 		this.hideItemMessageOnUseOn = ChatColor.translateAlternateColorCodes('&', onSection.getString("message on use"));
@@ -199,13 +200,14 @@ public class Config {
 		
 		// item:
 		Material itemOff = Material.getMaterial(offSection.getString("item"));
-		if (itemOff == null) itemOn = Material.REDSTONE_TORCH_OFF;
+		if (itemOff == null) itemOn = Material.INK_SACK;
+		short itemDataOff = (short) onSection.getInt("data", 8);
 		String hideItemOffName = ChatColor.translateAlternateColorCodes('&', offSection.getString("item name"));
 		List<String> hideItemOffLore = new ArrayList<String>();
 		for (String string : offSection.getStringList("lore")) {
 			hideItemOffLore.add(ChatColor.translateAlternateColorCodes('&', string));
 		}
-		this.hideItemOff = setItemMeta(new ItemStack(itemOff), hideItemOffName, hideItemOffLore);
+		this.hideItemOff = setItemMeta(new ItemStack(itemOff, 1, itemDataOff), hideItemOffName, hideItemOffLore);
 		
 		// message
 		this.hideItemMessageOnUseOff = ChatColor.translateAlternateColorCodes('&', offSection.getString("message on use"));
