@@ -1,4 +1,4 @@
 HubEssentials
 =============
 
-Offers a set of usefull features for every hub/lobby server.
+Offers a set of useful features for every hub/lobby server.
