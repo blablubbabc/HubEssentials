@@ -16,7 +16,7 @@ import org.bukkit.util.Vector;
 import de.blablubbabc.hubessentials.HubEssentials;
 
 public class DoubleJumpListener extends AbstractListener {
-	
+
 	public DoubleJumpListener(HubEssentials plugin) {
 		super(plugin);
 	}
@@ -33,7 +33,7 @@ public class DoubleJumpListener extends AbstractListener {
 			}
 		}
 	}
-	
+
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onPlayerToggleFlight(PlayerToggleFlightEvent event) {
 		Player player = event.getPlayer();
@@ -41,18 +41,18 @@ public class DoubleJumpListener extends AbstractListener {
 		event.setCancelled(true);
 		player.setAllowFlight(false);
 		player.setFlying(false);
-		
+
 		Location location = player.getLocation();
 		Vector velocity = location.getDirection().setY(0).normalize();
 		// y value:
 		velocity.setY(plugin.config.doubleJumpForceY).normalize();
 		// final strength:
 		velocity.multiply(plugin.config.doubleJumpForce);
-		
+
 		// just in case:
 		if (velocity.lengthSquared() > 100) velocity.normalize().multiply(10);
-		
+
 		player.setVelocity(velocity);
-		player.playSound(location, Sound.ENDERDRAGON_WINGS, 1.0F, 2.0F);
+		player.playSound(location, Sound.ENTITY_ENDERDRAGON_FLAP, 1.0F, 2.0F);
 	}
 }
