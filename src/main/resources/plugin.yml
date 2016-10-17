@@ -1,9 +1,10 @@
 name: HubEssentials
 main: de.blablubbabc.hubessentials.HubEssentials
-version: 1.5
-author: blablubbabc
-description: Essential stuff for a hub server.
 softdepend: [InSigns, TagAPI, Votifier, Multiverse-Core, My Worlds, Transporter, Multiworld]
+version: '${version}'
+authors: [${authors}]
+website: '${url}'
+description: '${description}'
 permissions:
     hubessentials.admin:
         description: Some bypasses for admins.
